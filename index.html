@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wohnung in Deutschland finden</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f8f9fa;color:#333}
+header{background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:25px 20px;text-align:center;color:white}
+header h1{font-size:24px;margin-bottom:6px}
+header p{font-size:13px;opacity:0.85;margin-bottom:15px}
+.lang-bar{display:flex;justify-content:center;gap:8px;margin-bottom:15px}
+.lang-btn{padding:5px 12px;background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.3);border-radius:15px;font-size:12px;cursor:pointer}
+.lang-btn.active{background:white;color:#0f3460}
+.search-box{display:flex;gap:8px;max-width:500px;margin:0 auto}
+.search-box select{flex:1;padding:11px;border:none;border-radius:10px;font-size:14px}
+.search-box button{padding:11px 18px;background:#e94560;color:white;border:none;border-radius:10px;font-size:14px;cursor:pointer}
+nav{display:flex;background:#0f3460;overflow-x:auto}
+nav button{flex:1;min-width:80px;padding:11px 8px;background:none;border:none;color:#aaa;font-size:13px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+nav button.active{color:white;border-bottom:3px solid #e94560}
+.page{display:none;padding:15px;max-width:700px;margin:0 auto}
+.page.active{display:block}
+.city-scroll{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:15px}
+.filter-btn{padding:6px 13px;border:2px solid #ddd;background:white;border-radius:20px;font-size:13px;cursor:pointer;white-space:nowrap}
+.filter-btn.active{background:#0f3460;border-color:#0f3460;color:white}
+.listing{background:white;border-radius:12px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);overflow:hidden;display:flex;gap:12px;padding:12px}
+.listing-img{width:90px;height:90px;border-radius:8px;object-fit:cover;flex-shrink:0;background:#eee;display:flex;align-items:center;justify-content:center;font-size:28px}
+.listing-body{flex:1}
+.listing-body h3{font-size:15px;margin-bottom:4px;line-height:1.3}
+.listing-meta{display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap}
+.badge{background:#f0f4f8;padding:2px 7px;border-radius:6px;font-size:11px;color:#555}
+.badge.price{background:#fff0f3;color:#e94560;font-weight:bold}
+.source{font-size:11px;color:#999;margin-bottom:8px}
+.btn-link{display:inline-block;padding:7px 14px;background:#e94560;color:white;border-radius:8px;font-size:13px;text-decoration:none}
+.promo{background:linear-gradient(135deg,#e94560,#c0392b);color:white;border-radius:12px;padding:18px;margin-bottom:18px;text-align:center}
+.promo h2{font-size:18px;margin-bottom:6px}
+.promo p{font-size:13px;opacity:0.9;margin-bottom:12px}
+.promo-btn{background:white;color:#e94560;padding:10px 20px;border:none;border-radius:10px;font-size:14px;font-weight:bold;cursor:pointer}
+.about-box{background:white;border-radius:12px;padding:18px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.about-box h2{color:#1a1a2e;margin-bottom:10px;font-size:17px}
+.about-box p{color:#555;line-height:1.6;font-size:14px;margin-bottom:6px}
+.site-card{background:white;border-radius:12px;padding:15px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,0.08);display:flex;align-items:center;gap:12px}
+.site-card .icon{font-size:28px}
+.site-card h3{font-size:15px;margin-bottom:3px}
+.site-card p{font-size:12px;color:#666}
+.site-card a{margin-top:8px;display:inline-block;color:#e94560;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+<div class="lang-bar">
+<button class="lang-btn active" onclick="setLang('ru')">🇷🇺 RU</button>
+<button class="lang-btn" onclick="setLang('uk')">🇺🇦 UK</button>
+<button class="lang-btn" onclick="setLang('de')">🇩🇪 DE</button>
+<button class="lang-btn" onclick="setLang('en')">🇬🇧 EN</button>
+</div>
+<h1 id="h-title">🏠 Жильё в Германии</h1>
+<p id="h-sub">Поиск квартир и комнат — просто и понятно</p>
+<div class="search-box">
+<select id="citySearch">
+<option value="">Все города</option>
+<option>Berlin</option><option>Hamburg</option><option>München</option>
+<option>Köln</option><option>Frankfurt am Main</option><option>Stuttgart</option>
+<option>Düsseldorf</option><option>Dortmund</option><option>Essen</option>
+<option>Leipzig</option><option>Bremen</option><option>Hannover</option>
+<option>Bochum</option><option>Bonn</option><option>Freiburg</option>
+<option>Erfurt</option><option>Dresden</option><option>Münster</option>
+<option>Brühl</option><option>Gelsenkirchen</option>
+</select>
+<button id="btn-search" onclick="filterCity()">Искать</button>
+</div>
+</header>
+<nav>
+<button class="active" onclick="showPage('home',this)" id="nav-home">🏠 Главная</button>
+<button onclick="showPage('listings',this)" id="nav-listings">📋 Объявления</button>
+<button onclick="showPage('sites',this)" id="nav-sites">🔗 Сайты</button>
+<button onclick="showPage('about',this)" id="nav-about">ℹ️ О нас</button>
+</nav>
+
+<div id="home" class="page active">
+<div class="promo">
+<h2 id="promo-title">🔍 Найди жильё быстро</h2>
+<p id="promo-text">Собрали лучшие объявления из всех крупных сайтов Германии в одном месте</p>
+<button class="promo-btn" onclick="showPage('listings',document.querySelectorAll('nav button')[1])" id="promo-btn">Смотреть объявления →</button>
+</div>
+<h3 style="margin-bottom:12px;color:#1a1a2e" id="new-title">🆕 Свежие объявления</h3>
+<div id="homeListings"></div>
+</div>
+
+<div id="listings" class="page">
+<div class="city-scroll" id="cityFilters">
+<button class="filter-btn active" onclick="setFilter('all',this)">Все</button>
+<button class="filter-btn" onclick="setFilter('Berlin',this)">Berlin</button>
+<button class="filter-btn" onclick="setFilter('Hamburg',this)">Hamburg</button>
+<button class="filter-btn" onclick="setFilter('München',this)">München</button>
+<button class="filter-btn" onclick="setFilter('Köln',this)">Köln</button>
+<button class="filter-btn" onclick="setFilter('Frankfurt am Main',this)">Frankfurt</button>
+<button class="filter-btn" onclick="setFilter('Stuttgart',this)">Stuttgart</button>
+<button class="filter-btn" onclick="setFilter('Düsseldorf',this)">Düsseldorf</button>
+<button class="filter-btn" onclick="setFilter('Dortmund',this)">Dortmund</button>
+<button class="filter-btn" onclick="setFilter('Essen',this)">Essen</button>
+<button class="filter-btn" onclick="setFilter('Bonn',this)">Bonn</button>
+<button class="filter-btn" onclick="setFilter('Leipzig',this)">Leipzig</button>
+<button class="filter-btn" onclick="setFilter('Bremen',this)">Bremen</button>
+<button class="filter-btn" onclick="setFilter('Hannover',this)">Hannover</button>
+<button class="filter-btn" onclick="setFilter('Freiburg',this)">Freiburg</button>
+<button class="filter-btn" onclick="setFilter('Erfurt',this)">Erfurt</button>
+<button class="filter-btn" onclick="setFilter('Dresden',this)">Dresden</button>
+<button class="filter-btn" onclick="setFilter('Bochum',this)">Bochum</button>
+<button class="filter-btn" onclick="setFilter('Brühl',this)">Brühl</button>
+</div>
+<div id="allListings"></div>
+</div>
+
+<div id="sites" class="page">
+<div class="about-box">
+<h2 id="sites-title">🔗 Полезные сайты для поиска жилья</h2>
+<p id="sites-sub">Проверенные немецкие сайты с реальными объявлениями</p>
+</div>
+<div class="site-card">
+<div class="icon">🏠</div>
+<div>
+<h3>ImmoScout24</h3>
+<p>Крупнейший сайт недвижимости Германии</p>
+<a href="https://www.immoscout24.de" target="_blank">→ immoscout24.de</a>
+</div>
+</div>
+<div class="site-card">
+<div class="icon">🛋</div>
+<div>
+<h3>WG-Gesucht</h3>
+<p>Поиск комнат и совместного жилья</p>
+<a href="https://www.wg-gesucht.de" target="_blank">→ wg-gesucht.de</a>
+</div>
+</div>
+<div class="site-card">
+<div class="icon">📦</div>
+<div>
+<h3>Kleinanzeigen</h3>
+<p>Объявления от частных лиц</p>
+<a href="https://www.kleinanzeigen.de/s-wohnung-mieten/anzeige:angebote" target="_blank">→ kleinanzeigen.de</a>
+</div>
+</div>
+<div class="site-card">
+<div class="icon">🏢</div>
+<div>
+<h3>Immonet</h3>
+<p>Квартиры и дома по всей Германии</p>
+<a href="https://www.immonet.de" target="_blank">→ immonet.de</a>
+</div>
+</div>
+<div class="site-card">
+<div class="icon">🌐</div>
+<div>
+<h3>Nestpick</h3>
+<p>Меблированные квартиры на английском</p>
+<a href="https://www.nestpick.com" target="_blank">→ nestpick.com</a>
+</div>
+</div>
+</div>
+
+<div id="about" class="page">
+<div class="about-box">
+<h2 id="about-title">О сервисе</h2>
+<p id="about-text1">Мы помогаем русскоязычным людям найти жильё в Германии быстро и без языкового барьера.</p>
+<p id="about-text2">На сайте собраны актуальные объявления из крупных немецких сайтов недвижимости.</p>
+</div>
+<div class="about-box">
+<h2 id="how-title">Как пользоваться</h2>
+<p id="how1">1. Выбери город</p>
+<p id="how2">2. Смотри объявления</p>
+<p id="how3">3. Нажми "Смотреть" — перейдёшь на оригинальный сайт</p>
+<p id="how4">4. Свяжись с арендодателем напрямую</p>
+</div>
+</div>
+
+<script>
+const T={
+ru:{title:'🏠 Жильё в Германии',sub:'Поиск квартир и комнат — просто и понятно',search:'Искать',nav:['🏠 Главная','📋 Объявления','🔗 Сайты','ℹ️ О нас'],promo:'🔍 Найди жильё быстро',promoText:'Собрали лучшие объявления из всех крупных сайтов Германии в одном месте',promoBtn:'Смотреть объявления →',newTitle:'🆕 Свежие объявления',view:'Смотреть →',source:'Источник'},
+uk:{title:'🏠 Житло в Німеччині',sub:'Пошук квартир і кімнат — просто і зрозуміло',search:'Шукати',nav:['🏠 Головна','📋 Оголошення','🔗 Сайти','ℹ️ Про нас'],promo:'🔍 Знайди житло швидко',promoText:'Зібрали найкращі оголошення з усіх великих сайтів Німеччини',promoBtn:'Дивитись оголошення →',newTitle:'🆕 Нові оголошення',view:'Дивитись →',source:'Джерело'},
+de:{title:'🏠 Wohnung in Deutschland',sub:'Wohnungen und Zimmer finden — einfach und klar',search:'Suchen',nav:['🏠 Startseite','📋 Anzeigen','🔗 Webseiten','ℹ️ Über uns'],promo:'🔍 Wohnung schnell finden',promoText:'Die besten Anzeigen von allen großen deutschen Immobilienportalen',promoBtn:'Anzeigen ansehen →',newTitle:'🆕 Neue Anzeigen',view:'Ansehen →',source:'Quelle'},
+en:{title:'🏠 Housing in Germany',sub:'Find apartments and rooms — simple and clear',search:'Search',nav:['🏠 Home','📋 Listings','🔗 Websites','ℹ️ About'],promo:'🔍 Find housing fast',promoText:'Best listings from all major German real estate portals in one place',promoBtn:'View listings →',newTitle:'🆕 New listings',view:'View →',source:'Source'},
+};
+
+let lang='ru';
+const data=[
+{city:'Berlin',title:'1-Zimmer Wohnung Mitte',price:'950€/Mo',desc:'25m², möbliert, U-Bahn 3 Min.',source:'ImmoScout24',url:'https://www.immoscout24.de/wohnung-mieten/berlin',img:'🏙'},
+{city:'Berlin',title:'WG-Zimmer Prenzlauer Berg',price:'650€/Mo',desc:'14m², Küche und Bad geteilt',source:'WG-Gesucht',url:'https://www.wg-gesucht.de/wg-zimmer-in-Berlin.8.0.1.0.html',img:'🛋'},
+{city:'Berlin',title:'2-Zimmer Friedrichshain',price:'1400€/Mo',desc:'55m², Balkon, ruhige Lage',source:'Kleinanzeigen',url:'https://www.kleinanzeigen.de/s-wohnung-mieten/berlin/anzeige:angebote',img:'🏠'},
+{city:'Hamburg',title:'Zimmer in WG Altona',price:'550€/Mo',desc:'12m², alle Nebenkosten inklusive',source:'WG-Gesucht',url:'https://www.wg-gesucht.de/wg-zimmer-in-Hamburg.55.0.1.0.html',img:'🛋'},
+{city:'Hamburg',title:'1-Zimmer Wohnung HH',price:'1100€/Mo',desc:'30m², zentrale Lage, Küche',source:'ImmoScout24',url:'https://www.immoscout24.de/wohnung-mieten/hamburg',img:'🏙'},
+{city:'München',title:'WG-Zimmer Schwabing',price:'900€/Mo',desc:'16m², modernes Haus, S-Bahn nah',source:'WG-Gesucht',url:'https://www.wg-gesucht.de/wg-zimmer-in-Muenchen.90.0.1.0.html',img:'🛋'},
+{city:'München',title:'Studio Maxvorstadt',price:'1500€/Mo',desc:'28m², komplett möbliert',source:'ImmoScout24',url:'https://www.immoscout24.de/wohnung-mieten/muenchen',img:'🏙'},
+{city:'Köln',title:'Zimmer Ehrenfeld',price:'580€/Mo',desc:'13m², tolle Nachbarn, Innenstadt',source:'WG-Gesucht',url:'https://www.wg-gesucht.de/wg-zimmer-in-Koeln.73.0.1.0.html',img:'🛋'},
+{city:'Frankfurt am Main',title:'1-Zimmer Sachsenhausen',price:'1050€/Mo',desc:'32m², Mainblick, modern',source:'ImmoScout24',url:'https://www.immoscout24.de/wohnung-mieten/frankfurt-am-main',img:'🏙'},
+{city:'Stuttgart',title:'WG-Zimmer Mitte',price:'700€/Mo',desc:'15m², ruhige Straße',source:'WG-Gesucht',url:'https://www.wg-gesucht.de/wg-zimmer-in-Stuttgart.124.0.1.0.html',img:'🛋'},
+{city:'Düsseldorf',title:'1-Zimmer Altstadt',price:'980€/Mo',desc:'28m², Rhein in der Nähe',source:'ImmoScout24',url:'https://www.immoscout24.de/wohnung-mieten/duesseldorf',img:'🏙'},
+{city:'Bonn',title:'Studio Zentrum',price:'750€/Mo',desc:'22m², möbliert, ruhig',source:'Kleinanzeigen',url:'https://www.kleinanzeigen.de/s-wohnung-mieten/bonn/anzeige:angebote',img:'🏠'},
+{city:'Leipzig',title:'2-Zimmer Gohlis',price:'750€/Mo',desc:'48m², Altbau, schön renoviert',source:'ImmoScout24',url:'https://www.immoscout24.de/wohnung-mieten/leipzig',img:'🏙'},
+{city:'Bremen',title:'WG-Zimmer Neustadt',price:'480€/Mo',desc:'11m², Studenten WG',source:'WG-Gesucht',url:'https://www.wg-gesucht.de/wg-zimmer-in-Bremen.22.0.1.0.html',img:'🛋'},
+{city:'Freiburg',title:'Zimmer Altstadt',price:'680€/Mo',desc:'14m², Fahrrad-Stadt, zentral',source:'WG-Gesucht',url:'https://www.wg-gesucht.de/wg-zimmer-in-Freiburg-im-Breisgau.38.0.1.0.html',img:'🛋'},
+{city:'Hannover',title:'1-Zimmer Mitte',price:'800€/Mo',desc:'27m², Neubau, Aufzug',source:'ImmoScout24',url:'https://www.immoscout24.de/wohnung-mieten/hannover',img:'🏙'},
+{city:'Dortmund',title:'2-Zimmer Wohnung',price:'750€/Mo',desc:'50m², guter Zustand',source:'Kleinanzeigen',url:'https://www.kleinanzeigen.de/s-wohnung-mieten/dortmund/anzeige:angebote',img:'🏠'},
+{city:'Erfurt',title:'Zimmer Zentrum',price:'420€/Mo',desc:'11m², ruhig, günstig',source:'WG-Gesucht',url:'https://www.wg-gesucht.de/wg-zimmer-in-Erfurt.34.0.1.0.html',img:'🛋'},
+{city:'Dresden',title:'1-Zimmer Neustadt',price:'780€/Mo',desc:'29m², modernes Viertel',source:'ImmoScout24',url:'https://www.immoscout24.de/wohnung-mieten/dresden',img:'🏙'},
+{city:'Bochum',title:'Zimmer für Studenten',price:'400€/Mo',desc:'10m², Uni in der Nähe',source:'WG-Gesucht',url:'https://www.wg-gesucht.de/wg-zimmer-in-Bochum.17.0.1.0.html',img:'🛋'},
+];
+
+let activeCity='all';
+
+function card(item){
+const t=T[lang];
+return `<div class="listing">
+<div class="listing-img">${item.img}</div>
+<div class="listing-body">
+<h3>${item.title}</h3>
+<div class="listing-meta">
+<span class="badge">📍 ${item.city}</span>
+<span class="badge price">${item.price}</span>
+</div>
+<div class="source">${t.source}: ${item.source}</div>
+<p style="font-size:13px;color:#666;margin-bottom:8px">${item.desc}</p>
+<a href="${item.url}" target="_blank" class="btn-link">${t.view}</a>
+</div></div>`;
+}
+
+function setLang(l){
+lang=l;
+document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+event.target.classList.add('active');
+const t=T[l];
+document.getElementById('h-title').textContent=t.title;
+document.getElementById('h-sub').textContent=t.sub;
+document.getElementById('btn-search').textContent=t.search;
+document.getElementById('promo-title').textContent=t.promo;
+document.getElementById('promo-text').textContent=t.promoText;
+document.getElementById('promo-btn').textContent=t.promoBtn;
+document.getElementById('new-title').textContent=t.newTitle;
+const navBtns=document.querySelectorAll('nav button');
+t.nav.forEach((n,i)=>navBtns[i].textContent=n);
+renderHome();renderAll();
+}
+
+function renderHome(){document.getElementById('homeListings').innerHTML=data.slice(0,5).map(card).join('');}
+function renderAll(){const f=activeCity==='all'?data:data.filter(d=>d.city===activeCity);document.getElementById('allListings').innerHTML=f.length?f.map(card).join(''):'<div style="text-align:center;padding:40px;color:#999">😕</div>';}
+function setFilter(city,btn){activeCity=city;document.querySelectorAll('#cityFilters .filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderAll();}
+function filterCity(){const city=document.getElementById('citySearch').value;showPage('listings',document.querySelectorAll('nav button')[1]);if(city){activeCity=city;document.querySelectorAll('#cityFilters .filter-btn').forEach(b=>{b.classList.remove('active');if(b.textContent.trim()===city)b.classList.add('active');});}renderAll();}
+function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
+renderHome();renderAll();
+</script>
+</body>
+</html>
