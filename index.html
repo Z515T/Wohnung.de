@@ -346,8 +346,6 @@ document.body.classList.toggle('admin-mode',localStorage.getItem('adminMode')===
 if(params.get(ADMIN_PARAM)==='1')setTimeout(()=>showPage('add'),0);
 }
 
-// Постоянный список для публикации. В следующие разы можно просто прислать
-// ссылки, а я добавлю сюда город, цену, дату проверки и короткое описание.
 const seedListings=[
 {city:'Berlin',title:'1 Zimmer Wohnung in Berlin',price:500,checked:'2026-06-10',desc:'Актуальная квартира в Берлине. Подходит для быстрого отклика, JobCenter/Kostenzusage указаны как возможный вариант.',jc:true,hot:true,url:'https://www.immobilienscout24.de/expose/168427917'},
 {city:'Berlin',title:'2-Zimmer Wohnung in Berlin',price:480,checked:'2026-06-10',desc:'Компактная квартира в Берлине с ценой в разумном диапазоне. Рекомендуем отправить подготовленное письмо на немецком.',jc:true,url:'https://www.immobilienscout24.de/expose/168422828'},
@@ -458,7 +456,7 @@ document.getElementById(id).classList.add('active');
 if(btn&&!btn.classList.contains('admin-only'))btn.classList.add('active');
 if(btn&&btn.classList.contains('admin-only')&&document.body.classList.contains('admin-mode'))btn.classList.add('active');
 }
-function goStripe(){window.open('https://buy.stripe.com/aFa5kD7A5f1q6bf5K3asg03','_blank');}
+function goStripe(){window.open('https://buy.stripe.com/6oU00jg6B5qQeHLdcvasg04','_blank');}
 function addListing(){
 const url=document.getElementById('newUrl').value.trim();
 const city=document.getElementById('newCity').value;
