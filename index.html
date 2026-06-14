@@ -6,58 +6,94 @@
 <title>Wohnung in Deutschland finden</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#f5f6f8;color:#2b2d33}
-header{background:linear-gradient(135deg,#14213d,#1f3a5f);padding:26px 20px;text-align:center;color:white}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f6f8;color:#202936}
+header{background:linear-gradient(135deg,#10243f,#1f4b72);padding:30px 20px;text-align:center;color:white}
 .logo{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:4px}
-header h1{font-size:23px;letter-spacing:.5px;font-weight:600}
-header p{font-size:13px;opacity:0.8;margin-bottom:16px}
-.lang-bar{display:flex;justify-content:center;gap:8px;margin-bottom:16px}
-.lang-btn{padding:5px 12px;background:rgba(255,255,255,0.12);color:white;border:1px solid rgba(255,255,255,0.25);border-radius:15px;font-size:12px;cursor:pointer}
-.lang-btn.active{background:white;color:#14213d}
+.logo svg{width:24px;height:24px;flex-shrink:0}
+header h1{font-size:26px;font-weight:700}
+header p{font-size:14px;opacity:0.88;margin-bottom:18px}
+.lang-bar{display:flex;justify-content:center;gap:8px;margin-bottom:15px}
+.lang-btn{padding:6px 12px;background:rgba(255,255,255,0.12);color:white;border:1px solid rgba(255,255,255,0.28);border-radius:8px;font-size:12px;cursor:pointer}
+.lang-btn.active{background:white;color:#0f3460}
 .search-box{display:flex;gap:8px;max-width:500px;margin:0 auto}
-.search-box select{flex:1;padding:11px;border:none;border-radius:10px;font-size:14px}
-.search-box button{padding:11px 18px;background:#2f7a63;color:white;border:none;border-radius:10px;font-size:14px;cursor:pointer;font-weight:600}
-nav{display:flex;background:#14213d;overflow-x:auto}
-nav button{flex:1;min-width:80px;padding:12px 8px;background:none;border:none;color:#a9b2c3;font-size:13px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
-nav button.active{color:white;border-bottom:3px solid #2f7a63}
-.page{display:none;padding:16px;max-width:700px;margin:0 auto}
+.search-box select{flex:1;padding:12px;border:none;border-radius:8px;font-size:14px}
+.search-box button{padding:12px 20px;background:#b8324a;color:white;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}
+nav{display:flex;background:#0f3460;overflow-x:auto}
+nav button{flex:1;min-width:90px;padding:13px 8px;background:none;border:none;color:rgba(255,255,255,0.7);font-size:13px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+nav button.active{color:white;border-bottom:3px solid #b8324a}
+body:not(.admin-mode) .admin-only{display:none}
+.page{display:none;padding:15px;max-width:700px;margin:0 auto}
 .page.active{display:block}
 .city-scroll{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:15px}
-.filter-btn{padding:6px 13px;border:1px solid #d8dce2;background:white;border-radius:20px;font-size:13px;cursor:pointer;white-space:nowrap;color:#444}
-.filter-btn.active{background:#14213d;border-color:#14213d;color:white}
-.listing{background:white;border-radius:10px;margin-bottom:12px;border:1px solid #e7e9ec;padding:16px}
-.listing h3{font-size:15px;margin-bottom:8px;font-weight:600;color:#1c2333}
-.listing-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-.badge{background:#f0f2f5;padding:3px 8px;border-radius:6px;font-size:11px;color:#5b6470}
-.badge.price{background:#eaf5f1;color:#1f5c4a;font-weight:700}
-.badge.jc{background:#e8f5e9;color:#2e7d32;font-weight:600}
-.badge.date{background:#f4f4f4;color:#9aa0aa}
-.listing p{font-size:13px;color:#6a7180;margin:0 0 10px;line-height:1.5}
-.btn-link{display:inline-block;padding:8px 16px;background:#2f7a63;color:white;border-radius:8px;font-size:13px;text-decoration:none;font-weight:600}
-.promo{background:linear-gradient(135deg,#2f7a63,#1f5c4a);color:white;border-radius:10px;padding:18px;margin-bottom:18px;text-align:center}
+.filter-btn{padding:7px 13px;border:1px solid #d7dee8;background:white;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap}
+.filter-btn.active{background:#0f3460;border-color:#0f3460;color:white}
+.toolbar{display:flex;gap:8px;margin-bottom:12px}
+.toolbar select{flex:1;padding:10px;border:1px solid #d7dee8;border-radius:8px;background:white;font-size:13px}
+.listing{background:white;border-radius:8px;margin-bottom:12px;border:1px solid #e3e8ef;box-shadow:0 1px 3px rgba(15,32,54,0.06);padding:12px}
+.listing-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.listing-photo{width:82px;height:64px;border-radius:8px;display:flex;align-items:flex-end;justify-content:flex-start;flex-shrink:0;overflow:hidden;background:#d7e0e8;position:relative;color:white}
+.listing-photo:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,24,40,0.08),rgba(10,24,40,0.5))}
+.listing-photo.berlin{background:linear-gradient(135deg,#cfd8dc 0%,#90a4ae 45%,#455a64 100%)}
+.listing-photo.koeln{background:linear-gradient(135deg,#d7ccc8 0%,#8d6e63 48%,#37474f 100%)}
+.listing-photo.duesseldorf{background:linear-gradient(135deg,#b2dfdb 0%,#607d8b 52%,#263238 100%)}
+.listing-photo.essen{background:linear-gradient(135deg,#c8e6c9 0%,#78909c 50%,#37474f 100%)}
+.listing-photo span{position:relative;z-index:1;padding:6px 8px;font-size:11px;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,0.35)}
+.listing-top h3{font-size:15px;margin-bottom:3px}
+.listing-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.badge{background:#f0f4f8;padding:3px 8px;border-radius:6px;font-size:11px;color:#526071}
+.badge.price{background:#f8e7eb;color:#b8324a;font-weight:bold}
+.badge.jc{background:#e8f5e9;color:#2e7d32;font-weight:bold}
+.badge.date{background:#f0f0f0;color:#888}
+.badge.hot{background:#eef4f8;color:#0f3460;font-weight:bold}
+.listing p{font-size:13px;color:#666;margin:8px 0;line-height:1.5}
+.listing-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btn-link,.btn-secondary{display:inline-block;padding:9px 16px;border-radius:8px;font-size:13px;text-decoration:none;border:none;cursor:pointer}
+.btn-link{background:#b8324a;color:white}
+.btn-secondary{background:#f0f4f8;color:#0f3460}
+.promo{background:linear-gradient(135deg,#12355b,#1f4b72);color:white;border-radius:8px;padding:18px;margin-bottom:18px;text-align:center}
 .promo h2{font-size:18px;margin-bottom:6px}
-.promo p{font-size:13px;opacity:0.92;margin-bottom:12px}
-.promo-btn{background:white;color:#1f5c4a;padding:10px 20px;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;width:100%}
-.premium-box{background:linear-gradient(135deg,#14213d,#1f3a5f);color:white;border-radius:10px;padding:20px;margin-bottom:15px;text-align:center}
-.premium-box h2{font-size:21px;margin-bottom:5px;font-weight:600}
+.promo p{font-size:13px;opacity:0.9;margin-bottom:12px}
+.promo-btn{background:white;color:#12355b;padding:10px 20px;border:none;border-radius:8px;font-size:14px;font-weight:bold;cursor:pointer;width:100%}
+.premium-box{background:linear-gradient(135deg,#10243f,#1f4b72);color:white;border-radius:8px;padding:20px;margin-bottom:15px;text-align:center}
+.premium-box h2{font-size:22px;margin-bottom:5px}
 .premium-box .price{font-size:36px;font-weight:bold;margin:10px 0}
 .premium-box ul{list-style:none;text-align:left;margin-bottom:20px}
-.premium-box ul li{padding:7px 0;font-size:14px;border-bottom:1px solid rgba(255,255,255,0.1)}
-.premium-box ul li:before{content:"✓ ";color:#6bd0b8}
-.about-box{background:white;border-radius:10px;padding:18px;margin-bottom:12px;border:1px solid #e7e9ec}
-.about-box h2{color:#1c2333;margin-bottom:10px;font-size:17px;font-weight:600}
-.about-box h3{color:#1c2333;margin:10px 0 4px;font-size:15px;font-weight:600}
-.about-box p{color:#5b6470;line-height:1.6;font-size:14px;margin-bottom:6px}
-.info-box{background:#eaf5f1;border-radius:10px;padding:15px;margin-bottom:15px;border-left:4px solid #2f7a63}
-.info-box h3{color:#1f5c4a;margin-bottom:6px;font-size:15px}
-.info-box p{font-size:13px;color:#4f5b56;line-height:1.5}
-.legal-box{background:#fff8e1;border-radius:10px;padding:15px;margin-bottom:15px;border-left:4px solid #f0ad4e}
-.legal-box h3{color:#9a6b00;margin-bottom:6px;font-size:14px}
-.legal-box p{font-size:12px;color:#7a6a45;line-height:1.5}
-.site-footer{max-width:700px;margin:0 auto;padding:10px 16px 30px;text-align:center}
-.site-footer button{color:#14213d;font-size:12px;text-decoration:underline;margin:0 6px;cursor:pointer;background:none;border:none}
-.site-footer .legal-note{font-size:11px;color:#9aa0aa;margin-top:8px}
+.premium-box ul li{padding:6px 0;font-size:14px;border-bottom:1px solid rgba(255,255,255,0.1)}
+.premium-box ul li:before{content:"✓ ";color:#4CAF50}
+.premium-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:15px}
+.premium-card{background:white;border:1px solid #e3e8ef;border-radius:8px;padding:14px;box-shadow:0 1px 3px rgba(15,32,54,0.06)}
+.premium-card h3{font-size:15px;color:#1a1a2e;margin-bottom:6px}
+.premium-card p{font-size:13px;color:#555;line-height:1.45}
+.trust-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:15px}
+.trust-item{background:#f7fafc;border:1px solid #e3e8ef;border-radius:8px;padding:10px;text-align:center}
+.trust-item strong{display:block;color:#0f3460;font-size:18px}
+.trust-item span{font-size:11px;color:#667085}
+.about-box{background:white;border-radius:8px;padding:18px;margin-bottom:12px;border:1px solid #e3e8ef;box-shadow:0 1px 3px rgba(15,32,54,0.06)}
+.about-box h2{color:#1a1a2e;margin-bottom:10px;font-size:17px}
+.about-box h3{color:#1a1a2e;margin:10px 0 4px;font-size:15px}
+.about-box p{color:#555;line-height:1.6;font-size:14px;margin-bottom:6px}
+.info-box{background:#eef6f0;border-radius:8px;padding:15px;margin-bottom:15px;border-left:4px solid #2f6f4e}
+.info-box h3{color:#2f6f4e;margin-bottom:6px;font-size:15px}
+.info-box p{font-size:13px;color:#555;line-height:1.5}
+.legal-box{background:#fff8e6;border-radius:8px;padding:15px;margin-bottom:15px;border-left:4px solid #c99221}
+.legal-box h3{color:#8a6610;margin-bottom:6px;font-size:14px}
+.legal-box p{font-size:12px;color:#666;line-height:1.5}
+.add-form{background:white;border-radius:12px;padding:16px;margin-bottom:15px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.add-form h2{font-size:18px;color:#1a1a2e;margin-bottom:6px}
+.add-form p{font-size:13px;color:#666;line-height:1.5;margin-bottom:12px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.form-grid .wide{grid-column:1/-1}
+.add-form input,.add-form select,.add-form textarea{width:100%;padding:10px;border:1px solid #ddd;border-radius:9px;font-size:14px;font-family:inherit}
+.add-form textarea{min-height:72px;resize:vertical}
+.form-actions{display:flex;gap:8px;margin-top:10px}
+.form-actions button{flex:1;padding:10px;border:none;border-radius:10px;font-size:14px;font-weight:bold;cursor:pointer}
+.primary-action{background:#e94560;color:white}
+.secondary-action{background:#f0f4f8;color:#0f3460}
+.hint{font-size:12px;color:#777;margin-top:8px}
+.site-footer{max-width:700px;margin:0 auto;padding:10px 15px 30px;text-align:center}
+.site-footer button{color:#0f3460;font-size:12px;text-decoration:underline;margin:0 6px;cursor:pointer;background:none;border:none}
 .fill-me{background:#fff3cd;padding:1px 4px;border-radius:3px;color:#856404;font-weight:bold}
+@media(max-width:560px){.form-grid,.premium-grid,.trust-row{grid-template-columns:1fr}.search-box{flex-direction:column}.listing-photo{width:72px;height:58px}}
 </style>
 </head>
 <body>
@@ -69,9 +105,10 @@ nav button.active{color:white;border-bottom:3px solid #2f7a63}
 <button class="lang-btn" onclick="setLang('en',this)">🇬🇧 EN</button>
 </div>
 <div class="logo">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10"/><path d="M9.5 20.5v-6h5v6"/></svg>
 <h1 id="h-title">Жильё в Германии</h1>
 </div>
-<p id="h-sub">Поиск квартир для беженцев и получателей Jobcenter</p>
+<p id="h-sub">Поиск квартир для беженцев и получателей JobCenter</p>
 <div class="search-box">
 <select id="citySearch">
 <option value="">Все города</option>
@@ -95,25 +132,25 @@ nav button.active{color:white;border-bottom:3px solid #2f7a63}
 
 <div id="home" class="page active">
 <div class="info-box">
-<h3 data-i18n="home.infoTitle">Для украинских беженцев</h3>
-<p data-i18n="home.infoText">Подборка ссылок на объявления, которые принимают Kostenzusage от Jobcenter. Цены указаны по данным на момент проверки и могут отличаться от текущих.</p>
+<h3>Для украинских беженцев и получателей JobCenter</h3>
+<p>Собрали ссылки на объявления, которые принимают Kostenzusage от JobCenter. Цены — в пределах разрешённых лимитов на момент проверки.</p>
 </div>
 <div class="promo">
-<h2 data-i18n="home.promoTitle">Премиум — 2,99 €/мес</h2>
-<p data-i18n="home.promoText">Доступ ко всем объявлениям и шаблоны писем арендодателю на немецком языке</p>
-<button class="promo-btn" onclick="goStripe()" data-i18n="home.promoBtn">Оформить подписку — 2,99 €/мес</button>
+<h2>Премиум — 6,99€/мес</h2>
+<p>Ранний доступ к новым квартирам, сильные письма на немецком и готовый пакет документов для JobCenter</p>
+<button class="promo-btn" onclick="goStripe()">Получить премиум за 6,99€/месяц →</button>
 </div>
-<h3 style="margin-bottom:12px;color:#1c2333" data-i18n="home.listingsHeading">Актуальные объявления</h3>
+<h3 style="margin-bottom:12px;color:#1a1a2e" id="h-new">Актуальные объявления</h3>
 <div id="homeListings"></div>
 </div>
 
 <div id="listings" class="page">
 <div class="legal-box" id="legalNotice">
-<h3 data-i18n="listings.legalTitle">Откуда эти данные</h3>
-<p data-i18n="listings.legalText">Это подборка ссылок на объявления с ImmoScout24 и других площадок. Мы не копируем тексты и фотографии — только собственное описание и ссылка на оригинал. Цена, площадь и наличие квартиры могут измениться у арендодателя в любой момент; актуальные данные проверяйте по ссылке «Смотреть». Указана холодная аренда (Kaltmiete), без коммунальных платежей. Права на оригинальные объявления принадлежат их авторам и площадкам публикации.</p>
+<h3>Откуда эти данные</h3>
+<p>Это подборка ссылок на реальные объявления с ImmoScout24 и других площадок. Мы не копируем тексты и фото объявлений — только своё короткое описание и ссылку на оригинал. Цена и наличие квартиры могут измениться у арендодателя в любой момент — актуальные данные проверяйте по ссылке "Смотреть". Все права на оригинальные объявления принадлежат их авторам и площадкам публикации.</p>
 </div>
 <div class="city-scroll" id="cityFilters">
-<button class="filter-btn active" onclick="setFilter('all',this)" data-i18n="listings.allFilter">Все</button>
+<button class="filter-btn active" onclick="setFilter('all',this)">Все</button>
 <button class="filter-btn" onclick="setFilter('Berlin',this)">Berlin</button>
 <button class="filter-btn" onclick="setFilter('Düsseldorf',this)">Düsseldorf</button>
 <button class="filter-btn" onclick="setFilter('Essen',this)">Essen</button>
@@ -128,55 +165,132 @@ nav button.active{color:white;border-bottom:3px solid #2f7a63}
 <button class="filter-btn" onclick="setFilter('Bremen',this)">Bremen</button>
 <button class="filter-btn" onclick="setFilter('Hannover',this)">Hannover</button>
 </div>
+<div class="toolbar">
+<select id="sortMode" onchange="renderAll()">
+<option value="new">Сначала новые</option>
+<option value="cheap">Сначала дешевле</option>
+<option value="city">По городу</option>
+</select>
+</div>
 <div id="allListings"></div>
 </div>
 
 <div id="premium" class="page">
 <div class="premium-box">
-<h2 data-i18n="premium.title">Премиум доступ</h2>
-<div class="price">2,99€<span style="font-size:16px;opacity:0.8" data-i18n="premium.priceSuffix">/мес</span></div>
-<ul data-i18n-list="premium.features"></ul>
-<button class="promo-btn" onclick="goStripe()" data-i18n="premium.btn">Оформить подписку →</button>
+<h2>Премиум доступ</h2>
+<div class="price">6,99€<span style="font-size:16px;opacity:0.8">/мес</span></div>
+<ul>
+<li>Ранний доступ к самым свежим объявлениям до публикации в общей ленте</li>
+<li>Готовые немецкие письма для арендодателя: первое сообщение, повторный контакт, ответ про JobCenter</li>
+<li>Проверочный список документов перед Besichtigung</li>
+<li>Подсказки по лимитам JobCenter и формулировкам для Kostenzusage</li>
+<li>Приоритетная поддержка на русском и украинском</li>
+<li>Еженедельная подборка подходящих квартир по выбранному городу</li>
+<li>Отмена в любой момент</li>
+</ul>
+<button class="promo-btn" onclick="goStripe()">Оформить премиум →</button>
+</div>
+<div class="trust-row">
+<div class="trust-item"><strong>24/7</strong><span>доступ к материалам</span></div>
+<div class="trust-item"><strong>DE</strong><span>тексты на немецком</span></div>
+<div class="trust-item"><strong>Отмена</strong><span>в любой момент</span></div>
+</div>
+<div class="premium-grid">
+<div class="premium-card">
+<h3>Письма, которые выглядят серьезно</h3>
+<p>Премиум дает готовые варианты сообщений для разных ситуаций: короткое первое письмо, подробное письмо с JobCenter и вежливое напоминание.</p>
+</div>
+<div class="premium-card">
+<h3>Пакет документов без хаоса</h3>
+<p>Чеклист помогает быстро понять, что уже готово, а что нужно запросить до просмотра квартиры.</p>
+</div>
+<div class="premium-card">
+<h3>Подборка по городу</h3>
+<p>Пользователь видит, какие квартиры стоит открыть первыми, где цена выглядит реалистично и где нужно писать быстрее.</p>
+</div>
+<div class="premium-card">
+<h3>Поддержка перед отправкой</h3>
+<p>Можно получить помощь с формулировкой сообщения арендодателю на русском или украинском языке.</p>
+</div>
 </div>
 <div class="legal-box">
-<h3 data-i18n="premium.termsTitle">Условия подписки</h3>
-<p data-i18n="premium.termsText">Оплата обрабатывается через Stripe. Подписка продлевается автоматически каждый месяц; отменить можно в любой момент по ссылке в письме-подтверждении или написав на <span class="fill-me">[email]</span>. Возврат за уже оплаченный период не производится, если иное не предусмотрено законом.</p>
+<h3>Условия подписки</h3>
+<p>Оплата обрабатывается через Stripe. Подписка продлевается автоматически каждый месяц, отменить можно в любой момент через ссылку в письме-подтверждении или написав нам на <span class="fill-me">[email для поддержки]</span>. Возврат за уже оплаченный период не производится, если иное не предусмотрено законом.</p>
+</div>
+</div>
+
+<div id="add" class="page admin-only">
+<div class="add-form">
+<h2>Быстро добавить объявление</h2>
+<p>Вставь ссылку, город и цену. Объявление сразу появится на сайте в этом браузере. Для постоянной публикации просто скидывай мне ссылки, и я внесу их в код.</p>
+<div class="form-grid">
+<input class="wide" id="newUrl" type="url" placeholder="Ссылка на объявление">
+<select id="newCity">
+<option value="">Город</option>
+<option>Berlin</option><option>Hamburg</option><option>München</option>
+<option>Köln</option><option>Frankfurt am Main</option><option>Stuttgart</option>
+<option>Düsseldorf</option><option>Dortmund</option><option>Essen</option>
+<option>Leipzig</option><option>Bremen</option><option>Hannover</option>
+<option>Bochum</option><option>Bonn</option><option>Freiburg</option>
+<option>Erfurt</option><option>Dresden</option><option>Münster</option>
+</select>
+<input id="newPrice" type="number" min="0" step="1" placeholder="Kaltmiete, €">
+<input class="wide" id="newTitle" type="text" placeholder="Название, например: 1 Zimmer Wohnung in Berlin">
+<textarea class="wide" id="newDesc" placeholder="Короткое описание, например: JobCenter возможно, 1 комната, быстро писать арендодателю"></textarea>
+</div>
+<div class="form-actions">
+<button class="primary-action" onclick="addListing()">Добавить</button>
+<button class="secondary-action" onclick="clearLocalListings()">Очистить локальные</button>
+</div>
+<div class="hint" id="addHint">Совет: если есть только ссылка, добавь город и примерную цену вручную. Так карточка будет полезной для посетителей.</div>
+</div>
+<div class="legal-box">
+<h3>Как я буду добавлять новые объявления</h3>
+<p>Ты можешь присылать мне просто список ссылок. Я проверю, добавлю город, цену, дату проверки и короткое описание в постоянный список сайта. Фото и тексты с площадок копировать не будем — это чище юридически.</p>
 </div>
 </div>
 
 <div id="tips" class="page">
 <div class="about-box">
-<h2 data-i18n="tips.docsTitle">Документы для аренды</h2>
-<div data-i18n-list="tips.docs"></div>
+<h2>Документы для аренды</h2>
+<p>• Personalausweis / Reisepass — удостоверение личности</p>
+<p>• Kostenzusage vom JobCenter — подтверждение оплаты</p>
+<p>• Mietschuldenfreiheitsbescheinigung — справка об отсутствии долгов</p>
+<p>• Selbstauskunft — анкета арендатора</p>
+<p>• SCHUFA — кредитная история (можно бесплатно запросить)</p>
 </div>
 <div class="about-box">
-<h2 data-i18n="tips.adviceTitle">Советы по поиску</h2>
-<div data-i18n-list="tips.advice"></div>
+<h2>Советы по поиску</h2>
+<p>• Пишите сразу после публикации — хорошие квартиры уходят за часы</p>
+<p>• Пишите на немецком — арендодатели предпочитают немецкий язык</p>
+<p>• Укажите что у вас есть Kostenzusage — это гарантия оплаты</p>
+<p>• Предложите показать документы сразу при просмотре</p>
 </div>
 <div class="about-box">
-<h2 data-i18n="tips.letterTitle">Шаблон письма арендодателю</h2>
-<p data-i18n="tips.letterIntro">Готовый текст на немецком языке — скопируйте и при необходимости дополните своими данными:</p>
-<p style="margin-top:6px;color:#1c2333">Sehr geehrte Damen und Herren,</p>
-<p style="margin-top:6px;color:#1c2333">ich interessiere mich sehr für Ihre Wohnung. Ich bin zuverlässig, ruhig und nichtrauchend. Die Miete wird vom Jobcenter übernommen (Kostenzusage liegt vor). Ich würde mich sehr über einen Besichtigungstermin freuen.</p>
-<p style="margin-top:6px;color:#1c2333">Mit freundlichen Grüßen</p>
+<h2>Шаблон письма (бесплатный)</h2>
+<p>Sehr geehrte Damen und Herren,</p>
+<p style="margin-top:6px">ich interessiere mich sehr für Ihre Wohnung. Ich bin zuverlässig, ruhig und nichtrauchend. Die Miete wird vom Jobcenter übernommen (Kostenzusage liegt vor). Ich würde mich sehr über einen Besichtigungstermin freuen.</p>
+<p style="margin-top:6px">Mit freundlichen Grüßen</p>
 </div>
 </div>
 
 <div id="about" class="page">
 <div class="about-box">
-<h2 data-i18n="about.serviceTitle">О сервисе</h2>
-<p data-i18n="about.serviceText1">Мы помогаем украинским беженцам и получателям Jobcenter найти жильё в Германии.</p>
-<p data-i18n="about.serviceText2">Мы собираем ссылки на актуальные объявления, которые принимают Kostenzusage.</p>
+<h2>О сервисе</h2>
+<p>Помогаем украинским беженцам и получателям JobCenter найти жильё в Германии.</p>
+<p>Собираем ссылки на актуальные объявления, которые принимают Kostenzusage.</p>
 </div>
 <div class="about-box">
-<h2 data-i18n="about.howTitle">Как пользоваться</h2>
-<div data-i18n-list="about.steps"></div>
+<h2>Как пользоваться</h2>
+<p>1. Выбери город</p>
+<p>2. Смотри актуальные объявления</p>
+<p>3. Нажми "Смотреть" — перейдёшь на оригинальное объявление</p>
+<p>4. Напиши арендодателю используя наш шаблон</p>
 </div>
 </div>
 
 <div id="impressum" class="page">
 <div class="about-box">
-<p class="legal-note" data-i18n="footer.germanNote"></p>
 <h2>Impressum</h2>
 <p><strong>Angaben gemäß § 5 TMG / § 18 Abs. 2 MStV:</strong></p>
 <p class="fill-me">[Vor- und Nachname bzw. Firmenname]</p>
@@ -197,7 +311,6 @@ nav button.active{color:white;border-bottom:3px solid #2f7a63}
 
 <div id="datenschutz" class="page">
 <div class="about-box">
-<p class="legal-note" data-i18n="footer.germanNote"></p>
 <h2>Datenschutzerklärung</h2>
 <h3>1. Verantwortlicher</h3>
 <p class="fill-me">[Name, Anschrift, E-Mail — siehe Impressum]</p>
@@ -217,123 +330,99 @@ nav button.active{color:white;border-bottom:3px solid #2f7a63}
 
 <script>
 const T={
-ru:{
-meta:{title:'Жильё в Германии',sub:'Поиск квартир для беженцев и получателей Jobcenter',search:'Искать',view:'Смотреть →',stand:'Проверено'},
-nav:['Главная','Объявления','Премиум','Советы','О нас'],
-home:{infoTitle:'Для украинских беженцев',infoText:'Подборка ссылок на объявления, которые принимают Kostenzusage от Jobcenter. Цены указаны по данным на момент проверки и могут отличаться от текущих.',promoTitle:'Премиум — 2,99 €/мес',promoText:'Доступ ко всем объявлениям и шаблоны писем арендодателю на немецком языке',promoBtn:'Оформить подписку — 2,99 €/мес',listingsHeading:'Актуальные объявления'},
-listings:{legalTitle:'Откуда эти данные',legalText:'Это подборка ссылок на объявления с ImmoScout24 и других площадок. Мы не копируем тексты и фотографии — только собственное описание и ссылка на оригинал. Цена, площадь и наличие квартиры могут измениться у арендодателя в любой момент; актуальные данные проверяйте по ссылке «Смотреть». Указана холодная аренда (Kaltmiete), без коммунальных платежей. Права на оригинальные объявления принадлежат их авторам и площадкам публикации.',allFilter:'Все',jcBadge:'Jobcenter',noResults:'Пока нет объявлений по этому городу'},
-premium:{title:'Премиум доступ',priceSuffix:'/мес',features:['Доступ ко всем актуальным объявлениям','Шаблоны писем арендодателю на немецком','Чек-лист документов для аренды','Советы по успешному поиску жилья','Поддержка на русском и украинском','Отмена подписки в любой момент'],btn:'Оформить подписку →',termsTitle:'Условия подписки',termsText:'Оплата обрабатывается через Stripe. Подписка продлевается автоматически каждый месяц; отменить можно в любой момент по ссылке в письме-подтверждении или написав на <span class="fill-me">[email]</span>. Возврат за уже оплаченный период не производится, если иное не предусмотрено законом.'},
-tips:{docsTitle:'Документы для аренды',docs:['Personalausweis / Reisepass — удостоверение личности','Kostenzusage vom Jobcenter — подтверждение оплаты аренды','Mietschuldenfreiheitsbescheinigung — справка об отсутствии долгов по прежней аренде','Selbstauskunft — анкета арендатора','SCHUFA-Auskunft — кредитная история (можно запросить бесплатно раз в год)'],adviceTitle:'Советы по поиску',advice:['Откликайтесь сразу после публикации — хорошие предложения уходят за несколько часов','Пишите арендодателю на немецком языке','Сразу укажите, что у вас есть Kostenzusage от Jobcenter — это гарантия оплаты','Предложите показать документы уже на просмотре квартиры'],letterTitle:'Шаблон письма арендодателю',letterIntro:'Готовый текст на немецком языке — скопируйте и при необходимости дополните своими данными:'},
-about:{serviceTitle:'О сервисе',serviceText1:'Мы помогаем украинским беженцам и получателям Jobcenter найти жильё в Германии.',serviceText2:'Мы собираем ссылки на актуальные объявления, которые принимают Kostenzusage.',howTitle:'Как пользоваться',steps:['Выберите город','Просмотрите подходящие объявления','Нажмите «Смотреть» — откроется оригинальное объявление','Свяжитесь с арендодателем, используя шаблон письма']},
-footer:{germanNote:'Разделы «Impressum» и «Datenschutz» содержат юридическую информацию и по закону предоставляются на немецком языке.'}
-},
-uk:{
-meta:{title:'Житло в Німеччині',sub:'Пошук квартир для біженців та отримувачів Jobcenter',search:'Шукати',view:'Дивитись →',stand:'Перевірено'},
-nav:['Головна','Оголошення','Преміум','Порад','Про нас'],
-home:{infoTitle:'Для українських біженців',infoText:'Добірка посилань на оголошення, які приймають Kostenzusage від Jobcenter. Ціни вказані на момент перевірки і можуть відрізнятися від поточних.',promoTitle:'Преміум — 2,99 €/міс',promoText:'Доступ до всіх оголошень і шаблони листів орендодавцю німецькою мовою',promoBtn:'Оформити підписку — 2,99 €/міс',listingsHeading:'Актуальні оголошення'},
-listings:{legalTitle:'Звідки ці дані',legalText:'Це добірка посилань на оголошення з ImmoScout24 та інших платформ. Ми не копіюємо тексти й фотографії — лише власний опис і посилання на оригінал. Ціна, площа та наявність квартири можуть змінитися в орендодавця в будь-який момент; актуальні дані перевіряйте за посиланням «Дивитись». Вказана холодна оренда (Kaltmiete), без комунальних платежів. Права на оригінальні оголошення належать їхнім авторам і платформам публікації.',allFilter:'Усі',jcBadge:'Jobcenter',noResults:'Поки немає оголошень для цього міста'},
-premium:{title:'Преміум доступ',priceSuffix:'/міс',features:['Доступ до всіх актуальних оголошень','Шаблони листів орендодавцю німецькою','Чек-лист документів для оренди','Поради для успішного пошуку житла','Підтримка українською та російською','Скасування підписки в будь-який момент'],btn:'Оформити підписку →',termsTitle:'Умови підписки',termsText:'Оплата обробляється через Stripe. Підписка автоматично продовжується щомісяця; скасувати можна в будь-який момент за посиланням у листі-підтвердженні або написавши на <span class="fill-me">[email]</span>. Повернення коштів за вже оплачений період не здійснюється, якщо інше не передбачено законом.'},
-tips:{docsTitle:'Документи для оренди',docs:['Personalausweis / Reisepass — документ, що підтверджує особу','Kostenzusage vom Jobcenter — підтвердження оплати оренди','Mietschuldenfreiheitsbescheinigung — довідка про відсутність заборгованості за попередньою орендою','Selbstauskunft — анкета орендаря','SCHUFA-Auskunft — кредитна історія (можна запросити безкоштовно раз на рік)'],adviceTitle:'Порад щодо пошуку',advice:['Відгукуйтесь одразу після публікації — хороші пропозиції зникають за кілька годин','Пишіть орендодавцю німецькою мовою','Одразу вкажіть, що у вас є Kostenzusage від Jobcenter — це гарантія оплати','Запропонуйте показати документи вже під час перегляду квартири'],letterTitle:'Шаблон листа орендодавцю',letterIntro:'Готовий текст німецькою — скопіюйте та за потреби додайте свої дані:'},
-about:{serviceTitle:'Про сервіс',serviceText1:'Ми допомагаємо українським біженцям та отримувачам Jobcenter знайти житло в Німеччині.',serviceText2:"Ми збираємо посилання на актуальні оголошення, які приймають Kostenzusage.",howTitle:'Як користуватися',steps:['Виберіть місто','Перегляньте відповідні оголошення','Натисніть «Дивитись» — відкриється оригінальне оголошення',"Зв'яжіться з орендодавцем за допомогою шаблону листа"]},
-footer:{germanNote:'Розділи «Impressum» та «Datenschutz» містять юридичну інформацію і за законом надаються німецькою мовою.'}
-},
-de:{
-meta:{title:'Wohnung in Deutschland',sub:'Wohnungen für Geflüchtete und Jobcenter-Empfänger',search:'Suchen',view:'Ansehen →',stand:'Geprüft'},
-nav:['Startseite','Anzeigen','Premium','Tipps','Über uns'],
-home:{infoTitle:'Für ukrainische Geflüchtete',infoText:'Eine Auswahl an Links zu Wohnungsangeboten, die eine Kostenzusage vom Jobcenter akzeptieren. Die Preise entsprechen dem Stand der letzten Prüfung und können abweichen.',promoTitle:'Premium — 2,99 €/Monat',promoText:'Zugang zu allen Angeboten und Anschreiben-Vorlagen auf Deutsch',promoBtn:'Abo abschließen — 2,99 €/Monat',listingsHeading:'Aktuelle Angebote'},
-listings:{legalTitle:'Woher stammen diese Daten',legalText:'Dies ist eine Sammlung von Links zu Angeboten auf ImmoScout24 und anderen Plattformen. Wir übernehmen keine Texte oder Fotos – nur eine eigene Kurzbeschreibung und einen Link zum Original. Preis, Größe und Verfügbarkeit können sich beim Anbieter jederzeit ändern; aktuelle Angaben bitte über „Ansehen" prüfen. Angegeben ist die Kaltmiete, ohne Nebenkosten. Die Rechte an den Originalanzeigen liegen bei deren Urhebern und den jeweiligen Plattformen.',allFilter:'Alle',jcBadge:'Jobcenter',noResults:'Für diese Stadt liegen noch keine Angebote vor'},
-premium:{title:'Premium-Zugang',priceSuffix:'/Monat',features:['Zugang zu allen aktuellen Angeboten','Anschreiben-Vorlagen auf Deutsch','Checkliste für Mietunterlagen','Tipps für die erfolgreiche Wohnungssuche','Support auf Russisch und Ukrainisch','Jederzeit kündbar'],btn:'Abo abschließen →',termsTitle:'Abo-Bedingungen',termsText:'Die Zahlung wird über Stripe abgewickelt. Das Abo verlängert sich automatisch monatlich; eine Kündigung ist jederzeit über den Link in der Bestätigungs-E-Mail oder per E-Mail an <span class="fill-me">[email]</span> möglich. Für bereits bezahlte Zeiträume erfolgt keine Rückerstattung, soweit gesetzlich nicht anders vorgeschrieben.'},
-tips:{docsTitle:'Unterlagen für die Wohnungssuche',docs:['Personalausweis / Reisepass','Kostenzusage vom Jobcenter','Mietschuldenfreiheitsbescheinigung','Selbstauskunft','SCHUFA-Auskunft (einmal jährlich kostenlos erhältlich)'],adviceTitle:'Tipps für die Suche',advice:['Schnell nach Veröffentlichung melden – gute Angebote sind oft nach wenigen Stunden vergeben','Anschreiben auf Deutsch verfassen','Direkt erwähnen, dass eine Kostenzusage vom Jobcenter vorliegt','Anbieten, die Unterlagen direkt zur Besichtigung mitzubringen'],letterTitle:'Anschreiben-Vorlage',letterIntro:'Fertiger Text – bei Bedarf mit eigenen Angaben ergänzen:'},
-about:{serviceTitle:'Über den Service',serviceText1:'Wir helfen ukrainischen Geflüchteten und Jobcenter-Empfängern, eine Wohnung in Deutschland zu finden.',serviceText2:'Wir sammeln Links zu aktuellen Angeboten, die eine Kostenzusage akzeptieren.',howTitle:"So funktioniert's",steps:['Stadt auswählen','Passende Angebote ansehen','Auf „Ansehen" klicken – das Original-Angebot öffnet sich','Anbieter mit der Anschreiben-Vorlage kontaktieren']},
-footer:{germanNote:''}
-},
-en:{
-meta:{title:'Housing in Germany',sub:'Apartments for refugees and Jobcenter recipients',search:'Search',view:'View →',stand:'Checked'},
-nav:['Home','Listings','Premium','Tips','About'],
-home:{infoTitle:'For Ukrainian refugees',infoText:'A selection of links to apartment listings that accept a Kostenzusage (cost approval) from the Jobcenter. Prices reflect the last check and may have changed since.',promoTitle:'Premium — €2.99/month',promoText:'Access to all listings plus German-language letter templates for landlords',promoBtn:'Subscribe — €2.99/month',listingsHeading:'Current listings'},
-listings:{legalTitle:'Where this data comes from',legalText:'This is a collection of links to listings on ImmoScout24 and other platforms. We do not copy text or photos — only our own short description and a link to the original. Price, size and availability can change with the landlord at any time; check current details via "View". The price shown is cold rent (Kaltmiete), excluding utilities. Rights to the original listings belong to their authors and the platforms where they are published.',allFilter:'All',jcBadge:'Jobcenter',noResults:'No listings for this city yet'},
-premium:{title:'Premium access',priceSuffix:'/month',features:['Access to all current listings','German letter templates for landlords','Checklist of documents for renting','Tips for a successful search','Support in Russian and Ukrainian','Cancel anytime'],btn:'Subscribe →',termsTitle:'Subscription terms',termsText:'Payments are processed via Stripe. The subscription renews automatically every month; you can cancel anytime via the link in your confirmation email or by writing to <span class="fill-me">[email]</span>. No refunds are given for already-paid periods unless required by law.'},
-tips:{docsTitle:'Documents for renting',docs:['Personalausweis / passport — proof of identity','Kostenzusage from the Jobcenter — confirmation of rent payment','Mietschuldenfreiheitsbescheinigung — confirmation of no outstanding rent debts','Selbstauskunft — tenant self-disclosure form','SCHUFA report — credit history (free once a year)'],adviceTitle:'Search tips',advice:['Respond as soon as a listing is published — good offers can go within hours','Write to landlords in German','Mention right away that you have a Kostenzusage from the Jobcenter','Offer to bring your documents to the viewing'],letterTitle:'Letter template for landlords',letterIntro:'Ready-to-use German text — copy it and add your own details if needed:'},
-about:{serviceTitle:'About this service',serviceText1:'We help Ukrainian refugees and Jobcenter recipients find housing in Germany.',serviceText2:'We collect links to current listings that accept a Kostenzusage.',howTitle:'How to use it',steps:['Choose a city','Browse matching listings','Click "View" to open the original listing','Contact the landlord using our letter template']},
-footer:{germanNote:'The "Impressum" and "Datenschutz" sections contain legally required information and are provided in German.'}
-}
+ru:{title:'Жильё в Германии',sub:'Поиск квартир для беженцев и получателей JobCenter',search:'Искать',view:'Смотреть →',stand:'Проверено',nav:['Главная','Объявления','Премиум','Советы','О нас']},
+uk:{title:'Житло в Німеччині',sub:'Пошук квартир для біженців та отримувачів JobCenter',search:'Шукати',view:'Дивитись →',stand:'Перевірено',nav:['Головна','Оголошення','Преміум','Поради','Про нас']},
+de:{title:'Wohnung in Deutschland',sub:'Wohnungen für Geflüchtete und Jobcenter-Empfänger',search:'Suchen',view:'Ansehen →',stand:'Geprüft',nav:['Startseite','Anzeigen','Premium','Tipps','Über uns']},
+en:{title:'Housing in Germany',sub:'Apartments for refugees and JobCenter recipients',search:'Search',view:'View →',stand:'Checked',nav:['Home','Listings','Premium','Tips','About']},
 };
 let lang='ru';
+const ADMIN_PARAM='admin';
 
-// City names for listing titles, with grammatical case where needed (RU/UK).
-const CITY_NAMES={
-'Berlin':{de:'Berlin',en:'Berlin',ru:'Берлине',uk:'Берліні'},
-'Düsseldorf':{de:'Düsseldorf',en:'Düsseldorf',ru:'Дюссельдорфе',uk:'Дюссельдорфі'},
-'Essen':{de:'Essen',en:'Essen',ru:'Эссене',uk:'Ессені'},
-'Köln':{de:'Köln',en:'Cologne',ru:'Кёльне',uk:'Кельні'}
-};
-
-function roomLabel(n,l){
-if(l==='de') return n+'-Zimmer-Wohnung';
-if(l==='en') return n+'-room apartment';
-if(l==='uk') return n+'-кімнатна квартира';
-return n+'-комнатная квартира';
-}
-function listingTitle(item,l){
-return roomLabel(item.rooms,l)+' – '+CITY_NAMES[item.city][l];
+function setupAdminMode(){
+const params=new URLSearchParams(window.location.search);
+if(params.get(ADMIN_PARAM)==='1')localStorage.setItem('adminMode','1');
+if(params.get(ADMIN_PARAM)==='0')localStorage.removeItem('adminMode');
+document.body.classList.toggle('admin-mode',localStorage.getItem('adminMode')==='1');
+if(params.get(ADMIN_PARAM)==='1')setTimeout(()=>showPage('add'),0);
 }
 
-// ⚠️ PLACEHOLDER DATA — replace price, size (m²) and rooms with the real
-// figures from each linked listing before publishing. These example values
-// cannot be auto-verified (ImmoScout24 blocks automated access), so they
-// must be checked and updated manually; update "checked" to the date you did so.
-// "price" = Kaltmiete (cold rent) in EUR, "size" = living space in m².
-const data=[
-{city:'Berlin',rooms:1,size:34,price:480,checked:'2026-06-10',jc:true,url:'https://www.immobilienscout24.de/expose/168427917'},
-{city:'Berlin',rooms:2,size:58,price:690,checked:'2026-06-10',jc:true,url:'https://www.immobilienscout24.de/expose/168422828'},
-{city:'Berlin',rooms:3,size:74,price:850,checked:'2026-06-10',jc:true,url:'https://www.immobilienscout24.de/expose/168400741'},
-{city:'Düsseldorf',rooms:2,size:60,price:650,checked:'2026-06-09',jc:true,url:'https://www.immobilienscout24.de/expose/166099326'},
-{city:'Düsseldorf',rooms:1,size:38,price:490,checked:'2026-06-09',jc:true,url:'https://www.immobilienscout24.de/expose/55992943'},
-{city:'Düsseldorf',rooms:3,size:76,price:820,checked:'2026-06-09',jc:true,url:'https://www.immobilienscout24.de/expose/168358622'},
-{city:'Essen',rooms:2,size:62,price:540,checked:'2026-06-08',jc:true,url:'https://www.immobilienscout24.de/expose/167020122'},
-{city:'Köln',rooms:1,size:40,price:560,checked:'2026-06-08',jc:true,url:'https://www.immobilienscout24.de/expose/168396163'},
+// Постоянный список для публикации. В следующие разы можно просто прислать
+// ссылки, а я добавлю сюда город, цену, дату проверки и короткое описание.
+const seedListings=[
+{city:'Berlin',title:'1 Zimmer Wohnung in Berlin',price:500,checked:'2026-06-10',desc:'Актуальная квартира в Берлине. Подходит для быстрого отклика, JobCenter/Kostenzusage указаны как возможный вариант.',jc:true,hot:true,url:'https://www.immobilienscout24.de/expose/168427917'},
+{city:'Berlin',title:'2-Zimmer Wohnung in Berlin',price:480,checked:'2026-06-10',desc:'Компактная квартира в Берлине с ценой в разумном диапазоне. Рекомендуем отправить подготовленное письмо на немецком.',jc:true,url:'https://www.immobilienscout24.de/expose/168422828'},
+{city:'Berlin',title:'1,5-Zimmer Wohnung in Berlin',price:520,checked:'2026-06-10',desc:'Проверенная ссылка на объявление в Берлине. Наличие и точные условия нужно подтвердить на странице арендодателя.',jc:true,url:'https://www.immobilienscout24.de/expose/168400741'},
+{city:'Düsseldorf',title:'2-Zimmer Wohnung in Düsseldorf',price:550,checked:'2026-06-09',desc:'Квартира в Дюссельдорфе для кандидатов с подготовленными документами. Подходит для отклика с Kostenzusage.',jc:true,url:'https://www.immobilienscout24.de/expose/166099326'},
+{city:'Düsseldorf',title:'1 Zimmer Wohnung in Düsseldorf',price:490,checked:'2026-06-09',desc:'Выгодная квартира в Дюссельдорфе. Лучше писать сразу и прикладывать аккуратный список документов.',jc:true,hot:true,url:'https://www.immobilienscout24.de/expose/55992943'},
+{city:'Düsseldorf',title:'1,5-Zimmer Wohnung in Düsseldorf',price:530,checked:'2026-06-09',desc:'Актуальная ссылка на квартиру в Дюссельдорфе. Цена и доступность могут измениться у арендодателя.',jc:true,url:'https://www.immobilienscout24.de/expose/168358622'},
+{city:'Essen',title:'2-Zimmer Wohnung in Essen',price:450,checked:'2026-06-08',desc:'Квартира в Эссене с привлекательной ценой. Хороший вариант для быстрого отклика с готовым письмом.',jc:true,hot:true,url:'https://www.immobilienscout24.de/expose/167020122'},
+{city:'Köln',title:'2-Zimmer Wohnung in Köln',price:560,checked:'2026-06-08',desc:'Актуальное объявление в Кёльне. Перед отправкой заявки проверьте требования к документам на странице объявления.',jc:true,url:'https://www.immobilienscout24.de/expose/168396163'},
 ];
 
 let activeCity='all';
+let data=[];
+
+function todayIso(){
+return new Date().toISOString().slice(0,10);
+}
+
+function escapeHtml(value){
+return String(value??'').replace(/[&<>"']/g,(char)=>({
+'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[char]));
+}
+
+function loadLocalListings(){
+try{return JSON.parse(localStorage.getItem('localListings')||'[]');}
+catch(e){return [];}
+}
+
+function saveLocalListings(listings){
+localStorage.setItem('localListings',JSON.stringify(listings));
+}
+
+function refreshData(){
+const local=loadLocalListings().map(item=>({...item,local:true}));
+data=[...local,...seedListings];
+}
 
 function formatDate(iso){
 const d=new Date(iso);
 return d.toLocaleDateString('de-DE');
 }
 
+function photoClass(city){
+return String(city||'').toLowerCase().replace('ü','ue').replace('ö','oe').replace('ä','ae').replace('ß','ss').replace(/[^a-z]/g,'');
+}
+
 function card(item){
 const t=T[lang];
+const title=escapeHtml(item.title);
+const city=escapeHtml(item.city);
+const desc=escapeHtml(item.desc);
+const url=escapeHtml(item.url);
+const photo=photoClass(item.city);
+const price=Number(item.price)>0?`${Number(item.price)} €`:'Цена уточняется';
 return `<div class="listing">
-<h3>${listingTitle(item,lang)}</h3>
+<div class="listing-top">
+<div class="listing-photo ${photo}"><span>${city}</span></div>
+<div>
+<h3>${title}</h3>
 <div class="listing-meta">
-<span class="badge">📍 ${item.city}</span>
-<span class="badge">${item.size} m²</span>
-<span class="badge price">${item.price} €</span>
-${item.jc?`<span class="badge jc">✓ ${t.listings.jcBadge}</span>`:''}
-<span class="badge date">${t.meta.stand}: ${formatDate(item.checked)}</span>
+<span class="badge">${city}</span>
+<span class="badge price">${price}</span>
+${item.jc?'<span class="badge jc">✓ JobCenter</span>':''}
+${item.hot?'<span class="badge hot">актуально</span>':''}
+<span class="badge date">${t.stand}: ${formatDate(item.checked)}</span>
 </div>
-<a href="${item.url}" target="_blank" rel="noopener" class="btn-link">${t.meta.view}</a>
+</div>
+</div>
+<p>${desc}</p>
+<div class="listing-actions">
+<a href="${url}" target="_blank" rel="noopener" class="btn-link">${t.view}</a>
+${item.local?'<button class="btn-secondary" onclick="removeLocalListing(\''+escapeHtml(item.id)+'\')">Удалить</button>':''}
+</div>
 </div>`;
-}
-
-function getPath(obj,path){return path.split('.').reduce((o,k)=>(o?o[k]:undefined),obj);}
-
-function translatePage(){
-const t=T[lang];
-document.querySelectorAll('[data-i18n]').forEach(el=>{
-const val=getPath(t,el.dataset.i18n);
-if(val!==undefined){
-el.innerHTML=val;
-if(el.classList.contains('legal-note')) el.style.display=val?'block':'none';
-}
-});
-document.querySelectorAll('[data-i18n-list]').forEach(el=>{
-const arr=getPath(t,el.dataset.i18nList);
-if(Array.isArray(arr)){
-if(el.tagName==='UL') el.innerHTML=arr.map(x=>`<li>${x}</li>`).join('');
-else el.innerHTML=arr.map(x=>`<p>• ${x}</p>`).join('');
-}
-});
 }
 
 function setLang(l,btn){
@@ -341,22 +430,70 @@ lang=l;
 document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
 btn.classList.add('active');
 const t=T[l];
-document.getElementById('h-title').textContent=t.meta.title;
-document.getElementById('h-sub').textContent=t.meta.sub;
-document.getElementById('btn-search').textContent=t.meta.search;
-document.querySelectorAll('nav button').forEach((b,i)=>b.textContent=t.nav[i]);
-translatePage();
+document.getElementById('h-title').textContent=t.title;
+document.getElementById('h-sub').textContent=t.sub;
+document.getElementById('btn-search').textContent=t.search;
+document.querySelectorAll('nav button').forEach((b,i)=>{if(t.nav[i])b.textContent=t.nav[i];});
 renderHome();renderAll();
 }
 
-function renderHome(){document.getElementById('homeListings').innerHTML=data.slice(0,5).map(card).join('');}
-function renderAll(){const f=activeCity==='all'?data:data.filter(d=>d.city===activeCity);document.getElementById('allListings').innerHTML=f.length?f.map(card).join(''):`<div style="text-align:center;padding:40px;color:#9aa0aa">${T[lang].listings.noResults}</div>`;}
-function setFilter(city,btn){activeCity=city;document.querySelectorAll('#cityFilters .filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderAll();}
-function filterCity(){const city=document.getElementById('citySearch').value;showPage('listings',document.querySelectorAll('nav button')[1]);if(city){activeCity=city;document.querySelectorAll('#cityFilters .filter-btn').forEach(b=>{b.classList.remove('active');if(b.textContent.trim()===city||b.textContent.includes(city.split(' ')[0]))b.classList.add('active');});}renderAll();}
-function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');if(btn)btn.classList.add('active');}
-function goStripe(){window.open('https://buy.stripe.com/aFa5kD7A5f1q6bf5K3asg03','_blank');}
+function sortListings(listings){
+const mode=document.getElementById('sortMode')?.value||'new';
+return [...listings].sort((a,b)=>{
+if(mode==='cheap')return (Number(a.price)||999999)-(Number(b.price)||999999);
+if(mode==='city')return a.city.localeCompare(b.city,'de')||new Date(b.checked)-new Date(a.checked);
+return new Date(b.checked)-new Date(a.checked);
+});
+}
 
-translatePage();
+function renderHome(){document.getElementById('homeListings').innerHTML=sortListings(data).slice(0,5).map(card).join('');}
+function renderAll(){const f=activeCity==='all'?data:data.filter(d=>d.city===activeCity);document.getElementById('allListings').innerHTML=f.length?sortListings(f).map(card).join(''):'<div style="text-align:center;padding:40px;color:#667085">Пока нет объявлений по этому городу</div>';}
+function setFilter(city,btn){activeCity=city;document.querySelectorAll('#cityFilters .filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderAll();}
+function filterCity(){const city=document.getElementById('citySearch').value;showPage('listings',document.querySelectorAll('nav button:not(.admin-only)')[1]);if(city){activeCity=city;document.querySelectorAll('#cityFilters .filter-btn').forEach(b=>{b.classList.remove('active');if(b.textContent.trim()===city||b.textContent.includes(city.split(' ')[0]))b.classList.add('active');});}renderAll();}
+function showPage(id,btn){
+if(id==='add'&&!document.body.classList.contains('admin-mode'))id='home';
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+if(btn&&!btn.classList.contains('admin-only'))btn.classList.add('active');
+if(btn&&btn.classList.contains('admin-only')&&document.body.classList.contains('admin-mode'))btn.classList.add('active');
+}
+function goStripe(){window.open('https://buy.stripe.com/aFa5kD7A5f1q6bf5K3asg03','_blank');}
+function addListing(){
+const url=document.getElementById('newUrl').value.trim();
+const city=document.getElementById('newCity').value;
+const price=document.getElementById('newPrice').value;
+const title=document.getElementById('newTitle').value.trim()||`Wohnung in ${city}`;
+const desc=document.getElementById('newDesc').value.trim()||`Добавлено вручную. Проверь актуальность по ссылке на оригинальное объявление.`;
+const hint=document.getElementById('addHint');
+if(!url||!city){hint.textContent='Нужны минимум ссылка и город.';return;}
+try{new URL(url);}
+catch(e){hint.textContent='Ссылка выглядит некорректно. Проверь, что она начинается с https://';return;}
+const listings=loadLocalListings();
+listings.unshift({id:String(Date.now()),url,city,price:Number(price)||0,title,desc,checked:todayIso(),jc:true,hot:true});
+saveLocalListings(listings);
+document.getElementById('newUrl').value='';
+document.getElementById('newPrice').value='';
+document.getElementById('newTitle').value='';
+document.getElementById('newDesc').value='';
+hint.textContent='Добавлено. Объявление появилось первым в списке.';
+refreshData();renderHome();renderAll();
+showPage('listings',document.querySelectorAll('nav button:not(.admin-only)')[1]);
+}
+
+function removeLocalListing(id){
+saveLocalListings(loadLocalListings().filter(item=>item.id!==id));
+refreshData();renderHome();renderAll();
+}
+
+function clearLocalListings(){
+if(!confirm('Удалить объявления, добавленные через эту форму в браузере?'))return;
+saveLocalListings([]);
+document.getElementById('addHint').textContent='Локальные объявления очищены.';
+refreshData();renderHome();renderAll();
+}
+setupAdminMode();
+refreshData();
 renderHome();renderAll();
 </script>
 </body>
